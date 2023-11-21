@@ -3,6 +3,7 @@
 namespace Obelaw;
 
 use Obelaw\Compiles\InfoCompile;
+use Obelaw\Compiles\NavbarCompile;
 use Obelaw\DriverManage;
 use Obelaw\Drivers\CacheDriver;
 use Obelaw\Schema\BundleRegistrar;
@@ -50,6 +51,7 @@ class CompileManage
     {
         return [
             InfoCompile::class,
+            NavbarCompile::class,
         ];
     }
 }

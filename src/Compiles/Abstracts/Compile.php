@@ -6,9 +6,24 @@ use Illuminate\Console\OutputStyle;
 
 abstract class Compile
 {
+    public $driverKey = null;
+
+    public function __construct(
+        protected $driver,
+    ) {
+    }
+
     abstract public function scanner($paths, OutputStyle $consoleOutput = null);
 
-    abstract public function setToDriver($values);
+    public function setToDriver($values)
+    {
+        $this->driver->set($this->driverKey, $values);
+    }
 
-    abstract public function manage($paths, OutputStyle $consoleOutput = null);
+    public function manage($paths, OutputStyle $consoleOutput = null)
+    {
+        $this->setToDriver(
+            $this->scanner($paths, $consoleOutput)
+        );
+    }
 }
