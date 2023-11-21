@@ -3,6 +3,7 @@
 namespace Obelaw;
 
 use Illuminate\Support\ServiceProvider;
+use Obelaw\Console\CompilingCommand;
 
 class ObelawOEngineServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,10 @@ class ObelawOEngineServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CompilingCommand::class,
+            ]);
+        }
     }
 }
