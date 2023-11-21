@@ -1,0 +1,18 @@
+{
+    "name": "obelaw/o-engine",
+    "description": "O this our engine for compiling and rendering obelaw modules",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Obelaw\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Karim Mohamed",
+            "email": "komicho1996@gmail.com"
+        }
+    ],
+    "require": {}
+}
