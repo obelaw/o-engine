@@ -2,6 +2,7 @@
 
 namespace Obelaw;
 
+use Obelaw\Compiles\FormsCompile;
 use Obelaw\Compiles\InfoCompile;
 use Obelaw\Compiles\NavbarCompile;
 use Obelaw\DriverManage;
@@ -52,6 +53,7 @@ class CompileManage
         return [
             InfoCompile::class,
             NavbarCompile::class,
+            FormsCompile::class,
         ];
     }
 }
