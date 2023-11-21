@@ -2,6 +2,7 @@
 
 namespace Obelaw;
 
+use Obelaw\Compiles\InfoCompile;
 use Obelaw\DriverManage;
 use Obelaw\Drivers\CacheDriver;
 use Obelaw\Schema\BundleRegistrar;
@@ -47,6 +48,8 @@ class CompileManage
 
     private function moduleCompiles()
     {
-        return [];
+        return [
+            InfoCompile::class,
+        ];
     }
 }
