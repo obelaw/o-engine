@@ -6,6 +6,7 @@ use Obelaw\Compiles\FormsCompile;
 use Obelaw\Compiles\GridsCompile;
 use Obelaw\Compiles\InfoCompile;
 use Obelaw\Compiles\NavbarCompile;
+use Obelaw\Compiles\ViewsCompile;
 use Obelaw\DriverManage;
 use Obelaw\Drivers\CacheDriver;
 use Obelaw\Schema\BundleRegistrar;
@@ -56,6 +57,7 @@ class CompileManage
             NavbarCompile::class,
             FormsCompile::class,
             GridsCompile::class,
+            ViewsCompile::class,
         ];
     }
 }
