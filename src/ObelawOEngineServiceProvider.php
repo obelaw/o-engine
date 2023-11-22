@@ -7,6 +7,7 @@ use Obelaw\Compiles\CompileManagement;
 use Obelaw\Console\CompilingCommand;
 use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Drivers\CacheDriver;
+use Obelaw\Render\BundlesManagement;
 
 class ObelawOEngineServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,7 @@ class ObelawOEngineServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('obelaw.o.compile', CompileManagement::class);
+        $this->app->singleton('obelaw.o.bundles', BundlesManagement::class);
 
         $this->app->bind(Driver::class, CacheDriver::class);
     }

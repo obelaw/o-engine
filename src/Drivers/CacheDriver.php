@@ -7,13 +7,13 @@ use Obelaw\Drivers\Abstracts\Driver;
 
 class CacheDriver extends Driver
 {
-    public function __construct(
-        public $prefix = null
-    ) {
-    }
-
     public function set($key, $values)
     {
-        Cache::forever($this->prefix . $key, $values);
+        Cache::forever($this->getPrefix() . $key, $values);
+    }
+
+    public function get($key)
+    {
+        return Cache::get($this->getPrefix() . $key);
     }
 }
