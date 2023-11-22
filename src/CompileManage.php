@@ -2,6 +2,7 @@
 
 namespace Obelaw;
 
+use Obelaw\Compiles\ACLCompile;
 use Obelaw\Compiles\FormsCompile;
 use Obelaw\Compiles\GridsCompile;
 use Obelaw\Compiles\InfoCompile;
@@ -60,6 +61,7 @@ class CompileManage
             FormsCompile::class,
             GridsCompile::class,
             ViewsCompile::class,
+            ACLCompile::class,
         ];
     }
 }
