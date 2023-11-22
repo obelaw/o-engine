@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw;
+namespace Obelaw\Compiles;
 
 use Obelaw\Compiles\ACLCompile;
 use Obelaw\Compiles\FormsCompile;
@@ -10,17 +10,21 @@ use Obelaw\Compiles\MigrationsCompile;
 use Obelaw\Compiles\NavbarCompile;
 use Obelaw\Compiles\RoutesCompile;
 use Obelaw\Compiles\ViewsCompile;
-use Obelaw\DriverManage;
-use Obelaw\Drivers\CacheDriver;
+use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Schema\BundleRegistrar;
 
-class CompileManage
+class CompileManagement
 {
+    private $driver = null;
+
     private $driverPrefix = null;
+
     private $modulesPaths = null;
 
-    public function __construct()
+    public function __construct(Driver $driver)
     {
+        $this->driver = $driver;
+
         $this->modulesPaths = BundleRegistrar::getPaths(BundleRegistrar::MODULE);
     }
 
@@ -45,10 +49,10 @@ class CompileManage
 
     public function compiling($consoleOutput = null)
     {
-        $driver = new CacheDriver($this->getDriverPrefix());
+        $driver = $this->driver->setPrefix($this->getDriverPrefix());
 
         foreach ($this->moduleCompiles() as $compile) {
-            $compileObj = new $compile(new DriverManage($driver));
+            $compileObj = new $compile($driver);
             $compileObj->manage($this->modulesPaths, $consoleOutput);
         }
     }
