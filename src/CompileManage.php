@@ -6,6 +6,7 @@ use Obelaw\Compiles\ACLCompile;
 use Obelaw\Compiles\FormsCompile;
 use Obelaw\Compiles\GridsCompile;
 use Obelaw\Compiles\InfoCompile;
+use Obelaw\Compiles\MigrationsCompile;
 use Obelaw\Compiles\NavbarCompile;
 use Obelaw\Compiles\RoutesCompile;
 use Obelaw\Compiles\ViewsCompile;
@@ -62,6 +63,7 @@ class CompileManage
             GridsCompile::class,
             ViewsCompile::class,
             ACLCompile::class,
+            MigrationsCompile::class,
         ];
     }
 }
