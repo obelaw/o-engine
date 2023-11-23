@@ -2,7 +2,7 @@
 
 namespace Obelaw\Schema\Grid;
 
-use Obelaw\Framework\Builder\Build\Common\ActionButton;
+use Obelaw\Schema\Common\ActionButton;
 
 class CTA
 {
