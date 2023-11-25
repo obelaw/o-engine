@@ -8,10 +8,7 @@ use Obelaw\Schema\ModuleInfo;
 
 class InfoCompile extends Compile
 {
-    public function __construct(
-        protected $driver,
-    ) {
-    }
+    public $driverKey = 'obelawForms';
 
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
@@ -46,17 +43,5 @@ class InfoCompile extends Compile
         $consoleOutput?->info('Info Compiled.');
 
         return $outBundles;
-    }
-
-    public function setToDriver($values)
-    {
-        $this->driver->set('obelawModules', $values);
-    }
-
-    public function manage($paths, OutputStyle $consoleOutput = null)
-    {
-        $this->setToDriver(
-            $this->scanner($paths, $consoleOutput)
-        );
     }
 }

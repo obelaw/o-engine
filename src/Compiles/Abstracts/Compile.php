@@ -17,6 +17,10 @@ abstract class Compile
 
     public function setToDriver($values)
     {
+        if (is_null($this->driverKey)) {
+            throw new \Exception('This driverKey must be a string');
+        }
+
         $this->driver->set($this->driverKey, $values);
     }
 

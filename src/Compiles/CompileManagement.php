@@ -8,6 +8,13 @@ use Obelaw\Compiles\GridsCompile;
 use Obelaw\Compiles\InfoCompile;
 use Obelaw\Compiles\MigrationsCompile;
 use Obelaw\Compiles\NavbarCompile;
+use Obelaw\Compiles\Plugins\ACLPluginCompile;
+use Obelaw\Compiles\Plugins\FormsPluginCompile;
+use Obelaw\Compiles\Plugins\GridsPluginCompile;
+use Obelaw\Compiles\Plugins\MigrationsPluginCompile;
+use Obelaw\Compiles\Plugins\NavbarPluginCompile;
+use Obelaw\Compiles\Plugins\RoutesPluginCompile;
+use Obelaw\Compiles\Plugins\ViewsPluginCompile;
 use Obelaw\Compiles\RoutesCompile;
 use Obelaw\Compiles\ViewsCompile;
 use Obelaw\Drivers\Abstracts\Driver;
@@ -21,11 +28,15 @@ class CompileManagement
 
     private $modulesPaths = null;
 
+    private $pluginsPaths = null;
+
     public function __construct(Driver $driver)
     {
         $this->driver = $driver;
 
         $this->modulesPaths = BundleRegistrar::getPaths(BundleRegistrar::MODULE);
+
+        $this->pluginsPaths = BundleRegistrar::getPaths(BundleRegistrar::PLUGIN);
     }
 
     /**
@@ -51,10 +62,27 @@ class CompileManagement
     {
         $driver = $this->driver->setPrefix($this->getDriverPrefix());
 
-        foreach ($this->moduleCompiles() as $compile) {
+        $consoleOutput?->info('Modules Compiling');
+        $this->modulesCompiling($driver, $consoleOutput);
+
+        $consoleOutput?->info('Plugins Compiling');
+        $this->pluginsCompiling($driver, $consoleOutput);
+    }
+
+    private function modulesCompiling($driver, $consoleOutput)
+    {
+        array_map(function ($compile) use ($driver, $consoleOutput) {
             $compileObj = new $compile($driver);
             $compileObj->manage($this->modulesPaths, $consoleOutput);
-        }
+        }, $this->moduleCompiles());
+    }
+
+    private function pluginsCompiling($driver, $consoleOutput)
+    {
+        array_map(function ($compile) use ($driver, $consoleOutput) {
+            $compileObj = new $compile($driver);
+            $compileObj->manage($this->pluginsPaths, $consoleOutput);
+        }, $this->PluginCompiles());
     }
 
     private function moduleCompiles()
@@ -68,6 +96,19 @@ class CompileManagement
             ViewsCompile::class,
             ACLCompile::class,
             MigrationsCompile::class,
+        ];
+    }
+
+    private function PluginCompiles()
+    {
+        return [
+            NavbarPluginCompile::class,
+            RoutesPluginCompile::class,
+            FormsPluginCompile::class,
+            GridsPluginCompile::class,
+            ViewsPluginCompile::class,
+            ACLPluginCompile::class,
+            MigrationsPluginCompile::class,
         ];
     }
 }
