@@ -27,10 +27,12 @@ class RoutesPluginCompile extends RoutesCompile
         $consoleOutput?->writeln('Routes for plugin Compile...');
 
         foreach ($paths as $id => $path) {
-            $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes.php';
+            $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'dashboard.php';
 
             if (file_exists($pathRoutesFile)) {
                 $this->setRoute($id, $pathRoutesFile);
+            } else {
+                $this->routes = Bundles::getRoutes();
             }
         }
 
