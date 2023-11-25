@@ -8,7 +8,7 @@ use Obelaw\Schema\ModuleInfo;
 
 class InfoCompile extends Compile
 {
-    public $driverKey = 'obelawForms';
+    public $driverKey = 'obelawModules';
 
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
