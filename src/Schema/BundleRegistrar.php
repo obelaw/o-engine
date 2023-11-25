@@ -2,7 +2,7 @@
 
 namespace Obelaw\Schema;
 
-use Obelaw\Framework\Pipeline\Bundles\Configurations;
+use Obelaw\Schema\Configuration\Configurations;
 
 class BundleRegistrar
 {
