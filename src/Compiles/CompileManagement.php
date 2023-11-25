@@ -19,6 +19,7 @@ use Obelaw\Compiles\Plugins\ViewsPluginCompile;
 use Obelaw\Compiles\RoutesCompile;
 use Obelaw\Compiles\ViewsCompile;
 use Obelaw\Drivers\Abstracts\Driver;
+use Obelaw\Render\ExternalDirectory;
 use Obelaw\Schema\BundleRegistrar;
 
 class CompileManagement
@@ -34,6 +35,10 @@ class CompileManagement
     public function __construct(Driver $driver)
     {
         $this->driver = $driver;
+
+        if (ExternalDirectory::hasDirectory()) {
+            ExternalDirectory::scan();
+        }
 
         $this->modulesPaths = BundleRegistrar::getPaths(BundleRegistrar::MODULE);
 
