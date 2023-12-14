@@ -14,6 +14,6 @@ class CacheDriver extends Driver
 
     public function get($key)
     {
-        return Cache::get($this->getPrefix() . $key);
+        return Cache::get($this->getPrefix() . $key, []);
     }
 }
