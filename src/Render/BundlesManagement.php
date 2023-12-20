@@ -124,6 +124,19 @@ class BundlesManagement
         return $views;
     }
 
+    public function getWidgets($id = null)
+    {
+        $Widgets = $this->driver
+            ->setPrefix($this->getCachePrefix())
+            ->get('obelawWidgets');
+
+        if (!is_null($id)) {
+            return $Widgets[$id];
+        }
+
+        return $Widgets;
+    }
+
     /**
      * Get the value of routes
      */

@@ -20,6 +20,7 @@ use Obelaw\Compiles\Plugins\ViewsPluginCompile;
 use Obelaw\Compiles\RoutesApiCompile;
 use Obelaw\Compiles\RoutesDashboardCompile;
 use Obelaw\Compiles\ViewsCompile;
+use Obelaw\Compiles\WidgetsCompile;
 use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Render\ExternalDirectory;
 use Obelaw\Schema\BundleRegistrar;
@@ -114,6 +115,7 @@ class CompileManagement
             FormsCompile::class,
             GridsCompile::class,
             ViewsCompile::class,
+            WidgetsCompile::class,
             ACLCompile::class,
             MigrationsCompile::class,
         ];
