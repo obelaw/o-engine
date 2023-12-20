@@ -3,10 +3,10 @@
 namespace Obelaw\Compiles\Plugins;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\RoutesCompile;
+use Obelaw\Compiles\RoutesDashboardCompile;
 use Obelaw\Facades\Bundles;
 
-class RoutesPluginCompile extends RoutesCompile
+class RoutesDashboardPluginCompile extends RoutesDashboardCompile
 {
     private $routes = [];
 
@@ -14,7 +14,7 @@ class RoutesPluginCompile extends RoutesCompile
     {
         $route[$id] = $path;
 
-        $this->routes = array_merge(Bundles::getRoutes(), $route);
+        $this->routes = array_merge(Bundles::getDashboardRoutes(), $route);
     }
 
     private function getRoutes()
@@ -26,7 +26,7 @@ class RoutesPluginCompile extends RoutesCompile
     {
         $consoleOutput?->writeln('Routes for plugin Compile...');
 
-        $this->routes = Bundles::getRoutes();
+        $this->routes = Bundles::getDashboardRoutes();
 
         foreach ($paths as $id => $path) {
             $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'dashboard.php';

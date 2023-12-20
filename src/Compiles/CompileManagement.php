@@ -14,9 +14,11 @@ use Obelaw\Compiles\Plugins\FormsPluginCompile;
 use Obelaw\Compiles\Plugins\GridsPluginCompile;
 use Obelaw\Compiles\Plugins\MigrationsPluginCompile;
 use Obelaw\Compiles\Plugins\NavbarPluginCompile;
-use Obelaw\Compiles\Plugins\RoutesPluginCompile;
+use Obelaw\Compiles\Plugins\RoutesApiPluginCompile;
+use Obelaw\Compiles\Plugins\RoutesDashboardPluginCompile;
 use Obelaw\Compiles\Plugins\ViewsPluginCompile;
-use Obelaw\Compiles\RoutesCompile;
+use Obelaw\Compiles\RoutesApiCompile;
+use Obelaw\Compiles\RoutesDashboardCompile;
 use Obelaw\Compiles\ViewsCompile;
 use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Render\ExternalDirectory;
@@ -107,7 +109,8 @@ class CompileManagement
         return [
             InfoCompile::class,
             NavbarCompile::class,
-            RoutesCompile::class,
+            RoutesDashboardCompile::class,
+            RoutesApiCompile::class,
             FormsCompile::class,
             GridsCompile::class,
             ViewsCompile::class,
@@ -120,7 +123,8 @@ class CompileManagement
     {
         return [
             NavbarPluginCompile::class,
-            RoutesPluginCompile::class,
+            RoutesDashboardPluginCompile::class,
+            RoutesApiPluginCompile::class,
             FormsPluginCompile::class,
             GridsPluginCompile::class,
             ViewsPluginCompile::class,

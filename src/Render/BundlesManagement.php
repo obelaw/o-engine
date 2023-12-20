@@ -127,11 +127,21 @@ class BundlesManagement
     /**
      * Get the value of routes
      */
-    public function getRoutes()
+    public function getDashboardRoutes()
     {
         return $this->driver
             ->setPrefix($this->getCachePrefix())
-            ->get('obelawRoutes');
+            ->get('obelawDashboardRoutes');
+    }
+
+    /**
+     * Get the value of routes
+     */
+    public function getApiRoutes()
+    {
+        return $this->driver
+            ->setPrefix($this->getCachePrefix())
+            ->get('obelawApiRoutes');
     }
 
     /**

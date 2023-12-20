@@ -5,9 +5,9 @@ namespace Obelaw\Compiles;
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
 
-class RoutesCompile extends Compile
+class RoutesApiCompile extends Compile
 {
-    public $driverKey = 'obelawRoutes';
+    public $driverKey = 'obelawApiRoutes';
 
     private $routes = [];
 
@@ -35,7 +35,7 @@ class RoutesCompile extends Compile
         }
 
         foreach ($paths as $id => $path) {
-            $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'dashboard.php';
+            $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'api.php';
 
             if (file_exists($pathRoutesFile)) {
                 $this->setRoute($id, $pathRoutesFile);
