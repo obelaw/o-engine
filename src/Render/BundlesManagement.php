@@ -77,6 +77,27 @@ class BundlesManagement
     }
 
     /**
+     * Get the value of modules
+     */
+    public function getModulesByGroup()
+    {
+        $modules = $this->driver
+            ->setPrefix($this->getCachePrefix())
+            ->get('obelawModules');
+
+        $collection = collect($modules);
+
+        $collection = $collection->map(function ($item,  $id) {
+            $item['id'] = $id;
+            return $item;
+        });
+
+        $collection = $collection->groupBy('group');
+
+        return $collection->all();
+    }
+
+    /**
      * Get the value of forms
      */
     public function getForms($id = null)
