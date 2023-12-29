@@ -13,7 +13,7 @@ class ModuleInfo
             'icon' => $icon,
             'href' => $href,
             'helper' => $helper,
-            'group' => $group ?? 'ERP',
+            'group' => $group ?? 'erp',
         ];
     }
 
