@@ -79,7 +79,7 @@ class BundlesManagement
     /**
      * Get the value of modules
      */
-    public function getModulesByGroup()
+    public function getModulesByGroup(array $groups = null)
     {
         $modules = $this->driver
             ->setPrefix($this->getCachePrefix())
@@ -93,6 +93,10 @@ class BundlesManagement
         });
 
         $collection = $collection->groupBy('group');
+
+        if ($groups) {
+            return $collection->only($groups);
+        }
 
         return $collection->all();
     }
