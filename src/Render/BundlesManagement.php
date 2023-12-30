@@ -70,7 +70,7 @@ class BundlesManagement
             ->get('obelawModules');
 
         if (!is_null($id) && isset($modules[$id])) {
-            return $modules[$id];
+            return $modules[$id] ?? null;
         }
 
         return $modules;
@@ -111,7 +111,7 @@ class BundlesManagement
             ->get('obelawForms');
 
         if (!is_null($id)) {
-            return $forms[$id];
+            return $forms[$id] ?? null;
         }
 
         return $forms;
@@ -127,7 +127,7 @@ class BundlesManagement
             ->get('obelawGrids');
 
         if (!is_null($id)) {
-            return $grids[$id];
+            return $grids[$id] ?? null;
         }
 
         return $grids;
@@ -143,7 +143,7 @@ class BundlesManagement
             ->get('obelawViews');
 
         if (!is_null($id)) {
-            return $views[$id];
+            return $views[$id] ?? null;
         }
 
         return $views;
@@ -156,7 +156,7 @@ class BundlesManagement
             ->get('obelawWidgets');
 
         if (!is_null($id)) {
-            return $Widgets[$id];
+            return $Widgets[$id] ?? null;
         }
 
         return $Widgets;
