@@ -27,6 +27,10 @@ class BundleRegistrar
             if ($providers = $configurations->getProviders()) {
                 self::$providers[$bundleName] = $providers;
             }
+
+            if (!$configurations->getActivateStatus()) {
+                unset(self::$paths[$type][$bundleName]);
+            }
         }
     }
 
