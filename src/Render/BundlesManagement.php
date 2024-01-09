@@ -227,13 +227,6 @@ class BundlesManagement
         );
     }
 
-    public function getProviders()
-    {
-        return $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawProviders');
-    }
-
     /**
      * Get the value of at install
      */

@@ -4,7 +4,6 @@ namespace Obelaw\Compiles;
 
 use Obelaw\Compiles\ACLCompile;
 use Obelaw\Compiles\Appends\ViewsAppendsCompile;
-use Obelaw\Compiles\Configurations\ProvidersCompile;
 use Obelaw\Compiles\FormsCompile;
 use Obelaw\Compiles\GridsCompile;
 use Obelaw\Compiles\InfoCompile;
@@ -80,9 +79,6 @@ class CompileManagement
 
         $consoleOutput?->info('Appends Compiling');
         $this->AppendsCompiling($driver, $consoleOutput);
-
-        $consoleOutput?->info('Configurations Compiling');
-        $this->configurationsCompiling($driver, $consoleOutput);
     }
 
     private function modulesCompiling($driver, $consoleOutput)
@@ -107,14 +103,6 @@ class CompileManagement
             $compileObj = new $compile($driver);
             $compileObj->manage(array_merge($this->modulesPaths, $this->pluginsPaths), $consoleOutput);
         }, $this->AppendsCompiles());
-    }
-
-    private function configurationsCompiling($driver, $consoleOutput)
-    {
-        array_map(function ($compile) use ($driver, $consoleOutput) {
-            $compileObj = new $compile($driver);
-            $compileObj->manage(BundleRegistrar::getProviders(), $consoleOutput);
-        }, $this->ConfigurationCompiles());
     }
 
     private function moduleCompiles()
@@ -151,13 +139,6 @@ class CompileManagement
     {
         return [
             ViewsAppendsCompile::class,
-        ];
-    }
-
-    private function ConfigurationCompiles()
-    {
-        return [
-            ProvidersCompile::class,
         ];
     }
 }

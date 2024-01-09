@@ -14,8 +14,6 @@ class BundleRegistrar
         self::PLUGIN => [],
     ];
 
-    private static $providers = [];
-
     public static function register($type, $bundleName, $path, $configCallback = null)
     {
         self::$paths[$type][$bundleName] = str_replace('\\', '/', $path);
@@ -23,10 +21,6 @@ class BundleRegistrar
         if ($configCallback) {
             $configurations = new Configurations;
             $configCallback($configurations);
-
-            if ($providers = $configurations->getProviders()) {
-                self::$providers[$bundleName] = $providers;
-            }
 
             if (!$configurations->getActivateStatus()) {
                 unset(self::$paths[$type][$bundleName]);
@@ -37,10 +31,5 @@ class BundleRegistrar
     public static function getPaths($type)
     {
         return self::$paths[$type];
-    }
-
-    public static function getProviders()
-    {
-        return self::$providers;
     }
 }
