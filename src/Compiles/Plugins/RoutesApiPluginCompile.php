@@ -29,7 +29,7 @@ class RoutesApiPluginCompile extends RoutesApiCompile
         $this->routes = Bundles::getApiRoutes();
 
         foreach ($paths as $id => $path) {
-            $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'dashboard.php';
+            $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'api.php';
 
             if (file_exists($pathRoutesFile)) {
                 $this->setRoute($id, $pathRoutesFile);
