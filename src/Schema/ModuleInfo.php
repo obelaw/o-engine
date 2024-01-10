@@ -10,7 +10,7 @@ class ModuleInfo
     {
         $this->info = [
             'name' => $name,
-            'icon' => $icon,
+            'icon' => (file_exists(public_path($icon))) ? $icon : 'vendor/obelaw/images/default.svg',
             'href' => $href,
             'helper' => $helper,
             'group' => $group ?? 'erp',

@@ -15,6 +15,8 @@ class SubLinks
             'permission' => $permission,
         ];
 
+        $link['icon'] = (file_exists(public_path($link['icon']))) ? $link['icon'] : 'vendor/obelaw/images/default.svg';
+
         array_push($this->links, $link);
 
         return $this;

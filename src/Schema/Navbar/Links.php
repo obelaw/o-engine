@@ -16,6 +16,8 @@ class Links
             'permission' => $permission,
         ];
 
+        $link['icon'] = (file_exists(public_path($link['icon']))) ? $link['icon'] : 'vendor/obelaw/images/default.svg';
+
         array_push($this->links, $link);
 
         return $this;
@@ -29,6 +31,8 @@ class Links
             'href' => $href,
             'permission' => $permission,
         ];
+
+        $link[$to]['icon'] = (file_exists(public_path($link[$to]['icon']))) ? $link[$to]['icon'] : 'vendor/obelaw/images/default.svg';
 
         $this->pushlinks = array_merge($this->pushlinks, $link);
 
@@ -48,6 +52,9 @@ class Links
             'permission' => $permission,
             'sublinks' => $sub->getLinks(),
         ];
+
+        $_links['icon'] = (file_exists(public_path($_links['icon']))) ? $_links['icon'] : 'vendor/obelaw/images/default.svg';
+
 
         array_push($this->links, $_links);
 
