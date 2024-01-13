@@ -11,7 +11,7 @@ class Button
         $button = [
             'label' => $label,
             'route' => $route,
-            'icon' => $icon,
+            'icon' => (file_exists(public_path($icon))) ? $icon : 'vendor/obelaw/images/default.svg',
             'permission' => $permission,
         ];
 
