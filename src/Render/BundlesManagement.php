@@ -117,6 +117,16 @@ class BundlesManagement
         return $forms;
     }
 
+    public function getFormFields($id)
+    {
+        return static::getForms($id)['fields'];
+    }
+
+    public function getFormActions($id)
+    {
+        return static::getForms($id)['actions'];
+    }
+
     /**
      * Get the value of grids
      */
