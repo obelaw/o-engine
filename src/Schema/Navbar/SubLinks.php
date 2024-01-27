@@ -22,6 +22,28 @@ class SubLinks
         return $this;
     }
 
+    public function thirdLinks($icon, $label, $links, $id = null, $permission = null)
+    {
+        $third = new ThirdSubLinks;
+
+        $links($third);
+
+        $_links = [
+            'id' => $id,
+            'icon' => $icon,
+            'label' => $label,
+            'permission' => $permission,
+            'thirdlinks' => $third->getLinks(),
+        ];
+
+        $_links['icon'] = (file_exists(public_path($_links['icon']))) ? $_links['icon'] : 'vendor/obelaw/images/default.svg';
+
+
+        array_push($this->links, $_links);
+
+        return $this;
+    }
+
     public function getLinks()
     {
         return $this->links;
