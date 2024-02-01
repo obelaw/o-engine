@@ -5,6 +5,7 @@ namespace Obelaw\Compiles\Plugins;
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\GridsCompile;
 use Obelaw\Facades\Bundles;
+use Obelaw\Schema\Grid\Action;
 use Obelaw\Schema\Grid\Button;
 use Obelaw\Schema\Grid\CTA;
 use Obelaw\Schema\Grid\Table;
@@ -30,9 +31,14 @@ class GridsPluginCompile extends GridsCompile
                     $table = new Table;
                     $CTA = new CTA;
                     $button = new Button;
+                    $actions = new Action;
 
                     if (method_exists($gridClass, 'createButton')) {
                         $gridClass->createButton($button);
+                    }
+
+                    if (method_exists($gridClass, 'actions')) {
+                        $gridClass->actions($actions);
                     }
 
                     $gridClass->table($table);
@@ -43,6 +49,7 @@ class GridsPluginCompile extends GridsCompile
                         'where' => (property_exists($gridClass, 'where')) ? $gridClass->where : null,
                         'filter' => (property_exists($gridClass, 'filter')) ? $gridClass->filter : null,
                         'buttons' => $button->getButtons(),
+                        'actions' => $actions->getActions(),
                         'rows' => $table->getColumns(),
                         'CTAs' => $CTA->getCalls(),
                     ];

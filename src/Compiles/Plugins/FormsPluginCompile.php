@@ -5,6 +5,7 @@ namespace Obelaw\Compiles\Plugins;
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\FormsCompile;
 use Obelaw\Facades\Bundles;
+use Obelaw\Schema\Form\Action;
 use Obelaw\Schema\Form\Fields;
 
 class FormsPluginCompile extends FormsCompile
@@ -24,6 +25,11 @@ class FormsPluginCompile extends FormsCompile
                     $formClass = include($filename);
 
                     $fields = new Fields;
+                    $actions = new Action;
+
+                    if (method_exists($formClass, 'actions')) {
+                        $formClass->actions($actions);
+                    }
 
                     (new $formClass)->form($fields);
 
@@ -33,7 +39,10 @@ class FormsPluginCompile extends FormsCompile
                         $fields->mergeFields($this->appendFields($paths)[$formId]);
                     }
 
-                    $_form[$id . '_' . basename($filename, '.php')] = $fields->getFields();
+                    $_form[$id . '_' . basename($filename, '.php')] = [
+                        'fields' => $fields->getFields(),
+                        'actions' => $actions->getActions(),
+                    ];
                 }
 
                 $outForms = array_merge($outForms, $_form);
