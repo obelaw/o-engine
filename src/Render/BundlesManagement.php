@@ -4,6 +4,7 @@ namespace Obelaw\Render;
 
 use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Framework\Console\AddDefaultAdminCommand;
+use Obelaw\Render\BundlesDisable;
 
 class BundlesManagement
 {
@@ -60,6 +61,16 @@ class BundlesManagement
     // //     return $this;
     // // }
 
+    public function BundlesDisable($items)
+    {
+        $collection = collect($items);
+        $collection = $collection->reject(function ($item,  $id) {
+            return in_array($id, BundlesDisable::disableList());
+        });
+
+        return $collection->all();
+    }
+
     /**
      * Get the value of modules
      */
@@ -68,6 +79,8 @@ class BundlesManagement
         $modules = $this->driver
             ->setPrefix($this->getCachePrefix())
             ->get('obelawModules');
+
+        $modules = $this->BundlesDisable($modules);
 
         if (!is_null($id) && isset($modules[$id])) {
             return $modules[$id] ?? null;
@@ -81,9 +94,7 @@ class BundlesManagement
      */
     public function getModulesByGroup(array $groups = null)
     {
-        $modules = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawModules');
+        $modules = $this->getModules();
 
         $collection = collect($modules);
 
@@ -177,9 +188,11 @@ class BundlesManagement
      */
     public function getDashboardRoutes()
     {
-        return $this->driver
+        $routes = $this->driver
             ->setPrefix($this->getCachePrefix())
             ->get('obelawDashboardRoutes');
+
+        return $this->BundlesDisable($routes);
     }
 
     /**
@@ -187,9 +200,11 @@ class BundlesManagement
      */
     public function getApiRoutes()
     {
-        return $this->driver
+        $routes = $this->driver
             ->setPrefix($this->getCachePrefix())
             ->get('obelawApiRoutes');
+
+        return $this->BundlesDisable($routes);
     }
 
     /**
@@ -200,6 +215,8 @@ class BundlesManagement
         $navbars = $this->driver
             ->setPrefix($this->getCachePrefix())
             ->get('obelawNavbars');
+
+        $navbars = $this->BundlesDisable($navbars);
 
         if (!is_null($id) && isset($navbars[$id])) {
             return $navbars[$id];
@@ -213,9 +230,11 @@ class BundlesManagement
      */
     public function getACLs()
     {
-        return $this->driver
+        $ACLs = $this->driver
             ->setPrefix($this->getCachePrefix())
             ->get('obelawACLs');
+
+        return $this->BundlesDisable($ACLs);
     }
 
     /**
@@ -254,9 +273,7 @@ class BundlesManagement
 
     public function hasModule($id)
     {
-        $modules = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawModules');
+        $modules = $this->getModules();
 
         if (isset($modules[$id])) {
             return true;

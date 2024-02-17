@@ -23,6 +23,11 @@ class ObelawOEngineServiceProvider extends ServiceProvider
         $this->app->singleton('obelaw.o.bundles', BundlesManagement::class);
 
         $this->app->bind(Driver::class, CacheDriver::class);
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/engine.php',
+            'obelaw.engine'
+        );
     }
 
     /**
@@ -33,6 +38,10 @@ class ObelawOEngineServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/engine.php' => config_path('obelaw/engine.php'),
+            ], ['obelaw:engine', 'obelaw:engine:config']);
+
             $this->commands([
                 CompilingCommand::class,
             ]);
