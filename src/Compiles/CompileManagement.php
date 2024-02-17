@@ -3,6 +3,7 @@
 namespace Obelaw\Compiles;
 
 use Obelaw\Compiles\ACLCompile;
+use Obelaw\Compiles\Appends\NavbarAppendsCompile;
 use Obelaw\Compiles\Appends\ViewsAppendsCompile;
 use Obelaw\Compiles\FormsCompile;
 use Obelaw\Compiles\GridsCompile;
@@ -138,6 +139,7 @@ class CompileManagement
     private function AppendsCompiles()
     {
         return [
+            NavbarAppendsCompile::class,
             ViewsAppendsCompile::class,
         ];
     }
