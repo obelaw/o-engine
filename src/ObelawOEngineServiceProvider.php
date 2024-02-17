@@ -2,6 +2,8 @@
 
 namespace Obelaw;
 
+use Composer\InstalledVersions;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider;
 use Obelaw\Compiles\CompileManagement;
 use Obelaw\Console\CompilingCommand;
@@ -38,12 +40,23 @@ class ObelawOEngineServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
+            $this->bootAboutCommand();
+
             $this->publishes([
                 __DIR__ . '/../config/engine.php' => config_path('obelaw/engine.php'),
             ], ['obelaw:engine', 'obelaw:engine:config']);
 
             $this->commands([
                 CompilingCommand::class,
+            ]);
+        }
+    }
+
+    private function bootAboutCommand()
+    {
+        if (class_exists(AboutCommand::class) && class_exists(InstalledVersions::class)) {
+            AboutCommand::add('Obelaw Environment', [
+                'O-Engine Version' => InstalledVersions::getPrettyVersion('obelaw/o-engine'),
             ]);
         }
     }
