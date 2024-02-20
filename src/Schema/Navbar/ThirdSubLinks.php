@@ -6,13 +6,14 @@ class ThirdSubLinks
 {
     private $links = [];
 
-    public function link($icon, $label, $href, $permission = null)
+    public function link($icon, $label, $href, $permission = null, $position = 999)
     {
         $link = [
             'icon' => $icon,
             'label' => $label,
             'href' => $href,
             'permission' => $permission,
+            'position' => $position,
         ];
 
         $link['icon'] = (file_exists(public_path($link['icon']))) ? $link['icon'] : 'vendor/obelaw/images/default.svg';

@@ -3,6 +3,7 @@
 namespace Obelaw\Compiles\Abstracts;
 
 use Illuminate\Console\OutputStyle;
+use Obelaw\Compiles\Filters\FiltersManagement;
 
 abstract class Compile
 {
@@ -21,7 +22,7 @@ abstract class Compile
             throw new \Exception('This driverKey must be a string');
         }
 
-        $this->driver->set($this->driverKey, $values);
+        $this->driver->set($this->driverKey, $this->filtersValues($values));
     }
 
     public function manage($paths, OutputStyle $consoleOutput = null)
@@ -29,5 +30,18 @@ abstract class Compile
         $this->setToDriver(
             $this->scanner($paths, $consoleOutput)
         );
+    }
+
+    private function filtersValues($values)
+    {
+        $filters = FiltersManagement::getFilters($this->driverKey);
+
+        if ($filters) {
+            foreach ($filters as $filter) {
+                $values = (new $filter)->apply($values);
+            }
+        }
+
+        return $values;
     }
 }

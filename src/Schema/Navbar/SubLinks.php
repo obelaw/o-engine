@@ -6,13 +6,14 @@ class SubLinks
 {
     private $links = [];
 
-    public function link($icon, $label, $href, $permission = null)
+    public function link($icon, $label, $href, $permission = null, $position = 999)
     {
         $link = [
             'icon' => $icon,
             'label' => $label,
             'href' => $href,
             'permission' => $permission,
+            'position' => $position,
         ];
 
         $link['icon'] = (file_exists(public_path($link['icon']))) ? $link['icon'] : 'vendor/obelaw/images/default.svg';
@@ -22,7 +23,7 @@ class SubLinks
         return $this;
     }
 
-    public function thirdLinks($icon, $label, $links, $id = null, $permission = null)
+    public function thirdLinks($icon, $label, $links, $id = null, $permission = null, $position = 999)
     {
         $third = new ThirdSubLinks;
 
@@ -34,6 +35,7 @@ class SubLinks
             'label' => $label,
             'permission' => $permission,
             'thirdlinks' => $third->getLinks(),
+            'position' => $position,
         ];
 
         $_links['icon'] = (file_exists(public_path($_links['icon']))) ? $_links['icon'] : 'vendor/obelaw/images/default.svg';

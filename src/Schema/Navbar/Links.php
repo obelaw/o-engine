@@ -7,13 +7,14 @@ class Links
     private $links = [];
     private $pushlinks = [];
 
-    public function link($icon, $label, $href, $permission = null)
+    public function link($icon, $label, $href, $permission = null, $position = 999)
     {
         $link = [
             'icon' => $icon,
             'label' => $label,
             'href' => $href,
             'permission' => $permission,
+            'position' => $position,
         ];
 
         $link['icon'] = (file_exists(public_path($link['icon']))) ? $link['icon'] : 'vendor/obelaw/images/default.svg';
@@ -23,13 +24,14 @@ class Links
         return $this;
     }
 
-    public function pushLink($to, $icon, $label, $href, $permission = null)
+    public function pushLink($to, $icon, $label, $href, $permission = null, $position = 999)
     {
         $link[$to] = [
             'icon' => $icon,
             'label' => $label,
             'href' => $href,
             'permission' => $permission,
+            'position' => $position,
         ];
 
         $link[$to]['icon'] = (file_exists(public_path($link[$to]['icon']))) ? $link[$to]['icon'] : 'vendor/obelaw/images/default.svg';
@@ -39,7 +41,7 @@ class Links
         return $this;
     }
 
-    public function subLinks($icon, $label, $links, $id = null, $permission = null)
+    public function subLinks($icon, $label, $links, $id = null, $permission = null, $position = 999)
     {
         $sub = new SubLinks;
 
@@ -51,6 +53,7 @@ class Links
             'label' => $label,
             'permission' => $permission,
             'sublinks' => $sub->getLinks(),
+            'position' => $position,
         ];
 
         $_links['icon'] = (file_exists(public_path($_links['icon']))) ? $_links['icon'] : 'vendor/obelaw/images/default.svg';
