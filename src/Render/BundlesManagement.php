@@ -133,6 +133,11 @@ class BundlesManagement
         return static::getForms($id)['fields'];
     }
 
+    public function getFormTabs($id)
+    {
+        return static::getForms($id)['tabs'];
+    }
+
     public function getFormActions($id)
     {
         return static::getForms($id)['actions'];

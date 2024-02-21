@@ -48,6 +48,7 @@ class FormsCompile extends Compile
 
                     $_form[$id . '_' . basename($filename, '.php')] = [
                         'fields' => $fields->getFields(),
+                        'tabs' => $fields->getTabs(),
                         'actions' => $actions->getActions(),
                     ];
 

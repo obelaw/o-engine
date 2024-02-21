@@ -7,6 +7,7 @@ use Exception;
 class Fields
 {
     private $fields = [];
+    private $tabs = [];
 
     public function addField($type = FieldType::TEXT, $attributes)
     {
@@ -37,6 +38,25 @@ class Fields
             $field['hint'] = (isset($field['hint'])) ? $field['hint'] : null;
             return $field;
         }, $this->fields);
+    }
+
+    public function addTab($id, $label, $fields)
+    {
+        $fieldsObj = new Fields;
+
+        $fields($fieldsObj);
+
+        $tab[$id] = [
+            'label' => $label,
+            'fields' => $fieldsObj->getFields(),
+        ];
+
+        $this->tabs = array_merge($this->tabs, $tab);
+    }
+
+    public function getTabs()
+    {
+        return $this->tabs;
     }
 
     private function handleText($attributes)
