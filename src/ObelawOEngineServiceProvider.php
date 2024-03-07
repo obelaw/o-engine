@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider;
 use Obelaw\Compiles\CompileManagement;
 use Obelaw\Console\CompilingCommand;
+use Obelaw\Console\DriverTableCommand;
 use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Drivers\CacheDriver;
 use Obelaw\Render\BundlesManagement;
@@ -21,15 +22,15 @@ class ObelawOEngineServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('obelaw.o.compile', CompileManagement::class);
-        $this->app->singleton('obelaw.o.bundles', BundlesManagement::class);
-
-        $this->app->bind(Driver::class, CacheDriver::class);
-
         $this->mergeConfigFrom(
             __DIR__ . '/../config/engine.php',
             'obelaw.engine'
         );
+
+        $this->app->singleton('obelaw.o.compile', CompileManagement::class);
+        $this->app->singleton('obelaw.o.bundles', BundlesManagement::class);
+
+        $this->app->bind(Driver::class, config('obelaw.engine.driver', CacheDriver::class));
     }
 
     /**
@@ -48,6 +49,7 @@ class ObelawOEngineServiceProvider extends ServiceProvider
 
             $this->commands([
                 CompilingCommand::class,
+                DriverTableCommand::class,
             ]);
         }
     }
