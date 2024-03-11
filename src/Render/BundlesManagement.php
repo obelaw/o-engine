@@ -135,7 +135,7 @@ class BundlesManagement
 
     public function getFormTabs($id)
     {
-        return static::getForms($id)['tabs'];
+        return static::getForms($id)['tabs'] ?? null;
     }
 
     public function getFormActions($id)
