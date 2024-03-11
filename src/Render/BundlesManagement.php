@@ -262,6 +262,16 @@ class BundlesManagement
     }
 
     /**
+     * Get the value of Seeds
+     */
+    public function getSeeds()
+    {
+        return $this->driver
+            ->setPrefix($this->getCachePrefix())
+            ->get('obelawSeeds');
+    }
+
+    /**
      * Get the value of at install
      */
     public function getAtInstalls()
