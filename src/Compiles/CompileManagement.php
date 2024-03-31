@@ -24,7 +24,7 @@ use Obelaw\Compiles\SeedsCompile;
 use Obelaw\Compiles\ViewsCompile;
 use Obelaw\Compiles\WidgetsCompile;
 use Obelaw\Drivers\Abstracts\Driver;
-use Obelaw\Render\ExternalDirectory;
+use Obelaw\Render\BundlesPool;
 use Obelaw\Schema\BundleRegistrar;
 
 class CompileManagement
@@ -41,8 +41,8 @@ class CompileManagement
     {
         $this->driver = $driver;
 
-        if (ExternalDirectory::hasDirectory()) {
-            ExternalDirectory::scan();
+        if (BundlesPool::hasPools()) {
+            BundlesPool::scan();
         }
 
         $this->modulesPaths = BundleRegistrar::getPaths(BundleRegistrar::MODULE);
