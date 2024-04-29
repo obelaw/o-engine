@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
@@ -25,27 +25,18 @@ class RoutesDashboardCompile extends Compile
 
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
-        $bar = null;
-
-        $consoleOutput?->info('Routes Compile...');
-
-        if ($consoleOutput) {
-            $bar = $consoleOutput->createProgressBar(count($paths));
-            $bar->start();
-        }
+        $consoleOutput?->writeln('Routes Compile...');
 
         foreach ($paths as $id => $path) {
             $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'dashboard.php';
 
             if (file_exists($pathRoutesFile)) {
                 $this->setRoute($id, $pathRoutesFile);
-                $bar?->advance();
             }
         }
 
-        $bar?->finish();
-
-        $consoleOutput?->info('Routes Compiled.');
+        $consoleOutput?->writeln('Routes Compiled.');
+        $consoleOutput?->newLine();
 
         return $this->getRoutes();
     }

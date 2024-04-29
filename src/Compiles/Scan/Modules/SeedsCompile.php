@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
@@ -31,6 +31,7 @@ class SeedsCompile extends Compile
         }
 
         $consoleOutput?->writeln('Seeds Compiled.');
+        $consoleOutput?->newLine();
 
         return $outSeeds;
     }

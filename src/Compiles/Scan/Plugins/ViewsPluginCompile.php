@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Compiles\Plugins;
+namespace Obelaw\Compiles\Scan\Plugins;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\ViewsCompile;
+use Obelaw\Compiles\Scan\Modules\ViewsCompile;
 use Obelaw\Facades\Bundles;
 use Obelaw\Schema\View\Button;
 use Obelaw\Schema\View\Tabs;

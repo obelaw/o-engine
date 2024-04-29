@@ -1,19 +1,18 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Plugins;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\Abstracts\Compile;
+use Obelaw\Compiles\Scan\Modules\MigrationsCompile;
+use Obelaw\Facades\Bundles;
 
-class MigrationsCompile extends Compile
+class MigrationsPluginCompile extends MigrationsCompile
 {
-    public $driverKey = 'obelawMigration';
-
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
-        $outoutMigrations = [];
+        $outoutMigrations = Bundles::getMigrations();
 
-        $consoleOutput?->writeln('Migrations Compile...');
+        $consoleOutput?->writeln('Migrations for plugin Compile...');
 
         foreach ($paths as $id => $path) {
             $pathInfoFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'migrations.php';
@@ -23,7 +22,7 @@ class MigrationsCompile extends Compile
             }
         }
 
-        $consoleOutput?->writeln('Forms Compiled.');
+        $consoleOutput?->writeln('Migrations for plugin Compiled.');
 
         return $outoutMigrations;
     }

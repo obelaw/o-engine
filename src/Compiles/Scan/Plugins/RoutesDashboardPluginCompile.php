@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Compiles\Plugins;
+namespace Obelaw\Compiles\Scan\Plugins;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\RoutesDashboardCompile;
+use Obelaw\Compiles\Scan\Modules\RoutesDashboardCompile;
 use Obelaw\Facades\Bundles;
 
 class RoutesDashboardPluginCompile extends RoutesDashboardCompile

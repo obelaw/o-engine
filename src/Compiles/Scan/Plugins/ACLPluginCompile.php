@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Compiles\Plugins;
+namespace Obelaw\Compiles\Scan\Plugins;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\ACLCompile;
+use Obelaw\Compiles\Scan\Modules\ACLCompile;
 use Obelaw\Facades\Bundles;
 use Obelaw\Schema\ACL\Section;
 

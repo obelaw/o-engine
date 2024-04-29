@@ -1,20 +1,21 @@
 <?php
 
-namespace Obelaw\Compiles\Plugins;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\RoutesApiCompile;
-use Obelaw\Facades\Bundles;
+use Obelaw\Compiles\Abstracts\Compile;
 
-class RoutesApiPluginCompile extends RoutesApiCompile
+class RoutesApiCompile extends Compile
 {
+    public $driverKey = 'obelawApiRoutes';
+
     private $routes = [];
 
     private function setRoute($id, $path)
     {
         $route[$id] = $path;
 
-        $this->routes = array_merge(Bundles::getApiRoutes(), $route);
+        $this->routes = array_merge($this->routes, $route);
     }
 
     private function getRoutes()
@@ -24,9 +25,7 @@ class RoutesApiPluginCompile extends RoutesApiCompile
 
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
-        $consoleOutput?->writeln('Routes for plugin Compile...');
-
-        $this->routes = Bundles::getApiRoutes();
+        $consoleOutput?->writeln('Routes Compile...');
 
         foreach ($paths as $id => $path) {
             $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'api.php';
@@ -36,7 +35,7 @@ class RoutesApiPluginCompile extends RoutesApiCompile
             }
         }
 
-        $consoleOutput?->writeln('Routes for plugin Compiled.');
+        $consoleOutput?->writeln('Routes Compiled.');
         $consoleOutput?->newLine();
 
         return $this->getRoutes();

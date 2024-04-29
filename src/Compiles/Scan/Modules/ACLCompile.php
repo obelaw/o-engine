@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
@@ -10,19 +10,13 @@ class ACLCompile extends Compile
 {
     public $driverKey = 'obelawACLs';
 
-    public function scanner($paths, OutputStyle $consoleOutput = null)
+    public function scanner($modules, OutputStyle $consoleOutput = null)
     {
         $outACL = [];
-        $bar = null;
 
-        $consoleOutput?->info('ACLs Compile...');
+        $consoleOutput?->writeln('ACLs Compile...');
 
-        if ($consoleOutput) {
-            $bar = $consoleOutput->createProgressBar(count($paths));
-            $bar->start();
-        }
-
-        foreach ($paths as $id => $path) {
+        foreach ($modules as $id => $path) {
             $pathACLFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'ACL.php';
 
             if (file_exists($pathACLFile)) {
@@ -36,13 +30,10 @@ class ACLCompile extends Compile
 
                 $outACL = array_merge($outACL, [$id => $section->getSection()]);
             }
-
-            $bar?->advance();
         }
 
-        $bar?->finish();
-
-        $consoleOutput?->info('ACLs Compiled.');
+        $consoleOutput?->writeln('ACLs Compiled.');
+        $consoleOutput?->newLine();
 
         return $outACL;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
@@ -16,20 +16,13 @@ class GridsCompile extends Compile
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
         $outGrids = [];
-        $bar = null;
 
-        $consoleOutput?->info('Grids Compile...');
+        $consoleOutput?->writeln('Grids Compile...');
 
         foreach ($paths as $id => $path) {
             $_grid = [];
 
             if (is_dir($path . DIRECTORY_SEPARATOR . 'etc/grids')) {
-
-                if ($consoleOutput) {
-                    $bar = $consoleOutput->createProgressBar(count(glob($path . DIRECTORY_SEPARATOR . 'etc/grids/*.php')));
-                    $bar->start();
-                }
-
                 foreach (glob($path . DIRECTORY_SEPARATOR . 'etc/grids/*.php') as $filename) {
                     $gridClass = include($filename);
 
@@ -59,17 +52,13 @@ class GridsCompile extends Compile
                         'rows' => $table->getColumns(),
                         'CTAs' => $CTA->getCalls(),
                     ];
-
-                    $bar?->advance();
                 }
-
-                $bar?->finish();
-
                 $outGrids = array_merge($outGrids, $_grid);
             }
         }
 
-        $consoleOutput?->info('Grids Compiled.');
+        $consoleOutput?->writeln('Grids Compiled.');
+        $consoleOutput?->newLine();
 
         return $outGrids;
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Compiles\Plugins;
+namespace Obelaw\Compiles\Scan\Plugins;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\GridsCompile;
+use Obelaw\Compiles\Scan\Modules\GridsCompile;
 use Obelaw\Facades\Bundles;
 use Obelaw\Schema\Grid\Action;
 use Obelaw\Schema\Grid\Button;

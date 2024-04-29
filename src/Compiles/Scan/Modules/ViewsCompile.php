@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
@@ -14,19 +14,13 @@ class ViewsCompile extends Compile
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
         $outViews = [];
-        $bar = null;
 
-        $consoleOutput?->info('Views Compile...');
+        $consoleOutput?->writeln('Views Compile...');
 
         foreach ($paths as $id => $path) {
             $_view = [];
 
             if (is_dir($path . DIRECTORY_SEPARATOR . 'etc/views')) {
-
-                if ($consoleOutput) {
-                    $bar = $consoleOutput->createProgressBar(count(glob($path . DIRECTORY_SEPARATOR . 'etc/views/*.php')));
-                    $bar->start();
-                }
 
                 foreach (glob($path . DIRECTORY_SEPARATOR . 'etc/views/*.php') as $filename) {
                     $viewClass = require $filename;
@@ -46,17 +40,14 @@ class ViewsCompile extends Compile
                         'tabs' => $tabs->getTabs(),
                         'buttons' => (method_exists($viewClass, 'magicButtons')) ? $buttons->getButtons() : null,
                     ];
-
-                    $bar?->advance();
                 }
-
-                $bar?->finish();
 
                 $outViews = array_merge($outViews, $_view);
             }
         }
 
-        $consoleOutput?->info('Views Compiled.');
+        $consoleOutput?->writeln('Views Compiled.');
+        $consoleOutput?->newLine();
 
         return $outViews;
     }

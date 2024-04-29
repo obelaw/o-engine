@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
@@ -13,14 +13,8 @@ class InfoCompile extends Compile
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
         $outBundles = [];
-        $bar = null;
 
-        $consoleOutput?->info('Info Compile...');
-
-        if ($consoleOutput) {
-            $bar = $consoleOutput->createProgressBar(count($paths));
-            $bar->start();
-        }
+        $consoleOutput?->writeln('Info Compile...');
 
         foreach ($paths as $id => $path) {
             $pathInfoFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'info.php';
@@ -34,13 +28,10 @@ class InfoCompile extends Compile
 
                 $outBundles = array_merge($outBundles, [$id => $schemaModuleInfo->getInfo()]);
             }
-
-            $bar?->advance();
         }
 
-        $bar?->finish();
-
-        $consoleOutput?->info('Info Compiled.');
+        $consoleOutput?->writeln('Info Compiled.');
+        $consoleOutput?->newLine();
 
         return $outBundles;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
@@ -14,19 +14,13 @@ class FormsCompile extends Compile
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
         $outForms = [];
-        $bar = null;
 
-        $consoleOutput?->info('Forms Compile...');
+        $consoleOutput?->writeln('Forms Compile...');
 
         foreach ($paths as $id => $path) {
             $_form = [];
 
             if (is_dir($path . DIRECTORY_SEPARATOR . 'etc/forms')) {
-
-                if ($consoleOutput) {
-                    $bar = $consoleOutput->createProgressBar(count(glob($path . DIRECTORY_SEPARATOR . 'etc/forms' . DIRECTORY_SEPARATOR . '*.php')));
-                    $bar->start();
-                }
 
                 foreach (glob($path . DIRECTORY_SEPARATOR . 'etc/forms' . DIRECTORY_SEPARATOR . '*.php') as $filename) {
                     $formClass = include($filename);
@@ -51,17 +45,14 @@ class FormsCompile extends Compile
                         'tabs' => $fields->getTabs(),
                         'actions' => $actions->getActions(),
                     ];
-
-                    $bar?->advance();
                 }
-
-                $bar?->finish();
 
                 $outForms = array_merge($outForms, $_form);
             }
         }
 
-        $consoleOutput?->info('Forms Compiled.');
+        $consoleOutput?->writeln('Forms Compiled.');
+        $consoleOutput?->newLine();
 
         return $outForms;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Compiles;
+namespace Obelaw\Compiles\Scan\Modules;
 
 use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
@@ -13,14 +13,8 @@ class NavbarCompile extends Compile
     public function scanner($paths, OutputStyle $consoleOutput = null)
     {
         $outNavbars = [];
-        $bar = null;
 
-        $consoleOutput?->info('Navbars Compile...');
-
-        if ($consoleOutput) {
-            $bar = $consoleOutput->createProgressBar(count($paths));
-            $bar->start();
-        }
+        $consoleOutput?->writeln('Navbars Compile...');
 
         foreach ($paths as $id => $path) {
             $pathNavbarFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'navbar.php';
@@ -37,13 +31,10 @@ class NavbarCompile extends Compile
                     $outNavbars = array_merge($outNavbars, [$id => $link->getLinks()]);
                 }
             }
-
-            $bar?->advance();
         }
 
-        $bar?->finish();
-
-        $consoleOutput?->info('Navbars Compiled.');
+        $consoleOutput?->writeln('Navbars Compiled.');
+        $consoleOutput?->newLine();
 
         return $outNavbars;
     }

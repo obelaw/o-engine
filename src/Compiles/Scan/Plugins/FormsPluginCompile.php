@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Compiles\Plugins;
+namespace Obelaw\Compiles\Scan\Plugins;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\FormsCompile;
+use Obelaw\Compiles\Scan\Modules\FormsCompile;
 use Obelaw\Facades\Bundles;
 use Obelaw\Schema\Form\Action;
 use Obelaw\Schema\Form\Fields;
