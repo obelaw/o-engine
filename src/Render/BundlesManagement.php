@@ -2,12 +2,15 @@
 
 namespace Obelaw\Render;
 
+use Illuminate\Support\Traits\Macroable;
 use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Framework\Console\AddDefaultAdminCommand;
 use Obelaw\Render\BundlesDisable;
 
 class BundlesManagement
 {
+    use Macroable;
+
     private $driver = null;
 
     private $cachePrefix = null;
