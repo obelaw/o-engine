@@ -2,7 +2,6 @@
 
 namespace Obelaw\Compiles\Scan\Modules;
 
-use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
 use Obelaw\Schema\Grid\Action;
 use Obelaw\Schema\Grid\Button;
@@ -13,11 +12,9 @@ class GridsCompile extends Compile
 {
     public $driverKey = 'obelawGrids';
 
-    public function scanner($paths, OutputStyle $consoleOutput = null)
+    public function scanner($paths)
     {
         $outGrids = [];
-
-        $consoleOutput?->writeln('Grids Compile...');
 
         foreach ($paths as $id => $path) {
             $_grid = [];
@@ -57,8 +54,6 @@ class GridsCompile extends Compile
             }
         }
 
-        $consoleOutput?->writeln('Grids Compiled.');
-        $consoleOutput?->newLine();
 
         return $outGrids;
     }

@@ -2,7 +2,6 @@
 
 namespace Obelaw\Compiles\Scan\Modules;
 
-use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
 use Obelaw\Schema\Navbar\Links;
 
@@ -10,11 +9,9 @@ class NavbarCompile extends Compile
 {
     public $driverKey = 'obelawNavbars';
 
-    public function scanner($paths, OutputStyle $consoleOutput = null)
+    public function scanner($paths)
     {
         $outNavbars = [];
-
-        $consoleOutput?->writeln('Navbars Compile...');
 
         foreach ($paths as $id => $path) {
             $pathNavbarFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'navbar.php';
@@ -32,9 +29,6 @@ class NavbarCompile extends Compile
                 }
             }
         }
-
-        $consoleOutput?->writeln('Navbars Compiled.');
-        $consoleOutput?->newLine();
 
         return $outNavbars;
     }

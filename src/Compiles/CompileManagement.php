@@ -14,19 +14,15 @@ use Obelaw\Compiles\Plugins\RoutesDashboardPluginCompile;
 use Obelaw\Compiles\Plugins\ViewsPluginCompile;
 use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Render\BundlesPool;
+use Obelaw\Render\BundlesScaneers;
 use Obelaw\Schema\BundleRegistrar;
 
 class CompileManagement
 {
     private $driver = null;
-
     private $driverPrefix = null;
-
     private $modulesPaths = null;
-    private $scaneersModuleCompiles = [];
     private $pluginsPaths = null;
-    private $scaneersPluginCompiles = [];
-
 
     public function __construct(Driver $driver)
     {
@@ -66,67 +62,53 @@ class CompileManagement
 
         $consoleOutput?->info('Modules Compiling');
         $this->modulesCompiling($driver, $consoleOutput);
+        $consoleOutput?->newLine(3);
+
 
         $consoleOutput?->info('Plugins Compiling');
         $this->pluginsCompiling($driver, $consoleOutput);
+        $consoleOutput?->newLine(3);
 
-        // $consoleOutput?->info('Appends Compiling');
-        // $this->AppendsCompiling($driver, $consoleOutput);
-    }
-
-    public function mergeModuleScaneers(array $scaneers)
-    {
-        $this->scaneersModuleCompiles = array_merge($this->scaneersModuleCompiles, $scaneers);
-    }
-
-    public function mergePluginScaneers(array $scaneers)
-    {
-        $this->scaneersPluginCompiles = array_merge($this->scaneersPluginCompiles, $scaneers);
+        $consoleOutput?->info('Appends Compiling');
+        $this->AppendsCompiling($driver, $consoleOutput);
+        $consoleOutput?->newLine(3);
     }
 
     private function modulesCompiling($driver, $consoleOutput)
     {
-        array_map(function ($compile) use ($driver, $consoleOutput) {
-            $compileObj = new $compile($driver);
-            $compileObj->manage($this->modulesPaths, $consoleOutput);
-        }, $this->scaneersModuleCompiles);
+        $scaneers = BundlesScaneers::getModuleScaneers();
+        $this->progress($scaneers, $this->modulesPaths, $driver, $consoleOutput);
     }
 
     private function pluginsCompiling($driver, $consoleOutput)
     {
-        array_map(function ($compile) use ($driver, $consoleOutput) {
-            $compileObj = new $compile($driver);
-            $compileObj->manage($this->pluginsPaths, $consoleOutput);
-        }, $this->scaneersPluginCompiles);
+        $scaneers = BundlesScaneers::getPluginScaneers();
+        $this->progress($scaneers, $this->pluginsPaths, $driver, $consoleOutput);
     }
 
     private function AppendsCompiling($driver, $consoleOutput)
     {
-        array_map(function ($compile) use ($driver, $consoleOutput) {
+        $scaneers = BundlesScaneers::getAppendScaneers();
+        $this->progress($scaneers, array_merge($this->modulesPaths, $this->pluginsPaths), $driver, $consoleOutput);
+    }
+
+    private function progress($scaneers, $bundles, $driver, $consoleOutput)
+    {
+        $progressBar = $consoleOutput->createProgressBar(count($scaneers));
+        $progressBar->setFormat("%current%/%max% [%bar%] %percent:3s%% (%message%)");
+
+        $progressBar->setMessage('Starting...');
+        $progressBar->start();
+
+        foreach ($scaneers as $compile) {
             $compileObj = new $compile($driver);
-            $compileObj->manage(array_merge($this->modulesPaths, $this->pluginsPaths), $consoleOutput);
-        }, $this->AppendsCompiles());
-    }
+            $compileObj->manage($bundles);
 
-    private function moduleCompiles()
-    {
-        return [
-            //
-        ];
-    }
+            $progressBar->setMessage($compile);
+            $progressBar->advance();
+        }
 
-    private function PluginCompiles()
-    {
-        return [
-            //
-        ];
-    }
-
-    private function AppendsCompiles()
-    {
-        return [
-            NavbarAppendsCompile::class,
-            ViewsAppendsCompile::class,
-        ];
+        $progressBar->setMessage('Finished!');
+        $progressBar->finish();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Obelaw\Compiles\Scan\Modules;
 
-use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
 
 class RoutesApiCompile extends Compile
@@ -23,9 +22,8 @@ class RoutesApiCompile extends Compile
         return $this->routes;
     }
 
-    public function scanner($paths, OutputStyle $consoleOutput = null)
+    public function scanner($paths)
     {
-        $consoleOutput?->writeln('Routes Compile...');
 
         foreach ($paths as $id => $path) {
             $pathRoutesFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'api.php';
@@ -35,8 +33,6 @@ class RoutesApiCompile extends Compile
             }
         }
 
-        $consoleOutput?->writeln('Routes Compiled.');
-        $consoleOutput?->newLine();
 
         return $this->getRoutes();
     }

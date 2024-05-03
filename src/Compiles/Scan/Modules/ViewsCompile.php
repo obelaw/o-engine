@@ -2,7 +2,6 @@
 
 namespace Obelaw\Compiles\Scan\Modules;
 
-use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
 use Obelaw\Schema\View\Button;
 use Obelaw\Schema\View\Tabs;
@@ -11,11 +10,10 @@ class ViewsCompile extends Compile
 {
     public $driverKey = 'obelawViews';
 
-    public function scanner($paths, OutputStyle $consoleOutput = null)
+    public function scanner($paths)
     {
         $outViews = [];
 
-        $consoleOutput?->writeln('Views Compile...');
 
         foreach ($paths as $id => $path) {
             $_view = [];
@@ -45,9 +43,6 @@ class ViewsCompile extends Compile
                 $outViews = array_merge($outViews, $_view);
             }
         }
-
-        $consoleOutput?->writeln('Views Compiled.');
-        $consoleOutput?->newLine();
 
         return $outViews;
     }

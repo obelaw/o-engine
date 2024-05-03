@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Compiles\Appends;
+namespace Obelaw\Compiles\Scan\Appends;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\NavbarCompile;
+use Obelaw\Compiles\Scan\Modules\NavbarCompile;
 use Obelaw\Facades\Bundles;
 use Obelaw\Schema\Navbar\Links;
 

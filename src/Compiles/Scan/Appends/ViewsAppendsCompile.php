@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Compiles\Appends;
+namespace Obelaw\Compiles\Scan\Appends;
 
 use Illuminate\Console\OutputStyle;
-use Obelaw\Compiles\ViewsCompile;
+use Obelaw\Compiles\Scan\Modules\ViewsCompile;
 use Obelaw\Facades\Bundles;
 use Obelaw\Schema\View\Button;
 use Obelaw\Schema\View\Tabs;
@@ -14,7 +14,7 @@ class ViewsAppendsCompile extends ViewsCompile
     {
         $outViews = [];
 
-        $consoleOutput?->writeln('Views Appends Compile...');
+        // $consoleOutput?->writeln('Views Appends Compile...');
 
         foreach ($paths as $id => $path) {
             $_view = [];
@@ -47,7 +47,7 @@ class ViewsAppendsCompile extends ViewsCompile
             }
         }
 
-        $consoleOutput?->writeln('Views Appends Compiled.');
+        // $consoleOutput?->writeln('Views Appends Compiled.');
 
         $append = [];
         foreach (Bundles::getViews() as $id => $view) {

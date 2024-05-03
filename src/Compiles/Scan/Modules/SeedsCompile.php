@@ -10,11 +10,10 @@ class SeedsCompile extends Compile
 {
     public $driverKey = 'obelawSeeds';
 
-    public function scanner($paths, OutputStyle $consoleOutput = null)
+    public function scanner($paths)
     {
         $outSeeds = [];
 
-        $consoleOutput?->writeln('Seeds Compile...');
 
         foreach ($paths as $id => $path) {
             $pathSeedFile = $path . DIRECTORY_SEPARATOR . 'etc' . DIRECTORY_SEPARATOR . 'seeds.php';
@@ -29,9 +28,6 @@ class SeedsCompile extends Compile
                 $outSeeds = array_merge($outSeeds, $seed->getSeeds());
             }
         }
-
-        $consoleOutput?->writeln('Seeds Compiled.');
-        $consoleOutput?->newLine();
 
         return $outSeeds;
     }

@@ -2,11 +2,12 @@
 
 namespace Obelaw\Compiles\Abstracts;
 
-use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Str;
 use Obelaw\Compiles\Filters\FiltersManagement;
 
 abstract class Compile
 {
+    public $name = null;
     public $driverKey = null;
 
     public function __construct(
@@ -14,7 +15,12 @@ abstract class Compile
     ) {
     }
 
-    abstract public function scanner($paths, OutputStyle $consoleOutput = null);
+    abstract public function scanner($paths);
+
+    public function getName()
+    {
+        return $this->name ?? Str::snake(Str::pluralStudly(class_basename($this)), ' ');
+    }
 
     public function setToDriver($values)
     {
@@ -25,10 +31,10 @@ abstract class Compile
         $this->driver->set($this->driverKey, $this->filtersValues($values));
     }
 
-    public function manage($paths, OutputStyle $consoleOutput = null)
+    public function manage($paths)
     {
         $this->setToDriver(
-            $this->scanner($paths, $consoleOutput)
+            $this->scanner($paths)
         );
     }
 

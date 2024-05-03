@@ -2,7 +2,6 @@
 
 namespace Obelaw\Compiles\Scan\Modules;
 
-use Illuminate\Console\OutputStyle;
 use Obelaw\Compiles\Abstracts\Compile;
 use Obelaw\Schema\Form\Action;
 use Obelaw\Schema\Form\Fields;
@@ -11,11 +10,10 @@ class FormsCompile extends Compile
 {
     public $driverKey = 'obelawForms';
 
-    public function scanner($paths, OutputStyle $consoleOutput = null)
+    public function scanner($paths)
     {
         $outForms = [];
 
-        $consoleOutput?->writeln('Forms Compile...');
 
         foreach ($paths as $id => $path) {
             $_form = [];
@@ -50,9 +48,6 @@ class FormsCompile extends Compile
                 $outForms = array_merge($outForms, $_form);
             }
         }
-
-        $consoleOutput?->writeln('Forms Compiled.');
-        $consoleOutput?->newLine();
 
         return $outForms;
     }
