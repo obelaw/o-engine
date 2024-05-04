@@ -118,161 +118,161 @@ class BundlesManagement
     /**
      * Get the value of forms
      */
-    public function getForms($id = null)
-    {
-        $forms = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawForms');
+    // public function getForms($id = null)
+    // {
+    //     $forms = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawForms');
 
-        if (!is_null($id)) {
-            return $forms[$id] ?? null;
-        }
+    //     if (!is_null($id)) {
+    //         return $forms[$id] ?? null;
+    //     }
 
-        return $forms;
-    }
+    //     return $forms;
+    // }
 
-    public function getFormFields($id)
-    {
-        return static::getForms($id)['fields'];
-    }
+    // public function getFormFields($id)
+    // {
+    //     return static::getForms($id)['fields'];
+    // }
 
-    public function getFormTabs($id)
-    {
-        return static::getForms($id)['tabs'] ?? null;
-    }
+    // public function getFormTabs($id)
+    // {
+    //     return static::getForms($id)['tabs'] ?? null;
+    // }
 
-    public function getFormActions($id)
-    {
-        return static::getForms($id)['actions'];
-    }
+    // public function getFormActions($id)
+    // {
+    //     return static::getForms($id)['actions'];
+    // }
 
     /**
      * Get the value of grids
      */
-    public function getGrids($id = null)
-    {
-        $grids = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawGrids');
+    // public function getGrids($id = null)
+    // {
+    //     $grids = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawGrids');
 
-        if (!is_null($id)) {
-            return $grids[$id] ?? null;
-        }
+    //     if (!is_null($id)) {
+    //         return $grids[$id] ?? null;
+    //     }
 
-        return $grids;
-    }
+    //     return $grids;
+    // }
 
     /**
      * Get the value of views
      */
-    public function getViews($id = null)
-    {
-        $views = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawViews');
+    // public function getViews($id = null)
+    // {
+    //     $views = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawViews');
 
-        if (!is_null($id)) {
-            return $views[$id] ?? null;
-        }
+    //     if (!is_null($id)) {
+    //         return $views[$id] ?? null;
+    //     }
 
-        return $views;
-    }
+    //     return $views;
+    // }
 
-    public function getWidgets($id = null)
-    {
-        $Widgets = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawWidgets');
+    // public function getWidgets($id = null)
+    // {
+    //     $Widgets = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawWidgets');
 
-        if (!is_null($id)) {
-            return $Widgets[$id] ?? null;
-        }
+    //     if (!is_null($id)) {
+    //         return $Widgets[$id] ?? null;
+    //     }
 
-        return $Widgets;
-    }
-
-    /**
-     * Get the value of routes
-     */
-    public function getDashboardRoutes()
-    {
-        $routes = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawDashboardRoutes');
-
-        return $this->BundlesDisable($routes);
-    }
+    //     return $Widgets;
+    // }
 
     /**
      * Get the value of routes
      */
-    public function getApiRoutes()
-    {
-        $routes = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawApiRoutes');
+    // public function getDashboardRoutes()
+    // {
+    //     $routes = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawDashboardRoutes');
 
-        return $this->BundlesDisable($routes);
-    }
+    //     return $this->BundlesDisable($routes);
+    // }
+
+    /**
+     * Get the value of routes
+     */
+    // public function getApiRoutes()
+    // {
+    //     $routes = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawApiRoutes');
+
+    //     return $this->BundlesDisable($routes);
+    // }
 
     /**
      * Get the value of navbars
      */
-    public function getNavbars($id = null)
-    {
-        $navbars = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawNavbars');
+    // public function getNavbars($id = null)
+    // {
+    //     $navbars = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawNavbars');
 
-        $navbars = $this->BundlesDisable($navbars);
+    //     $navbars = $this->BundlesDisable($navbars);
 
-        if (!is_null($id) && isset($navbars[$id])) {
-            return $navbars[$id];
-        }
+    //     if (!is_null($id) && isset($navbars[$id])) {
+    //         return $navbars[$id];
+    //     }
 
-        return $navbars;
-    }
+    //     return $navbars;
+    // }
 
     /**
      * Get the value of ACLs
      */
-    public function getACLs()
-    {
-        $ACLs = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawACLs');
+    // public function getACLs()
+    // {
+    //     $ACLs = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawACLs');
 
-        return $this->BundlesDisable($ACLs);
-    }
+    //     return $this->BundlesDisable($ACLs);
+    // }
 
     /**
      * Get the value of migrations
      */
-    public function getMigrations()
-    {
-        $migratePath = [
-            '/vendor/obelaw/framework/database/migrations'
-        ];
+    // public function getMigrations()
+    // {
+    //     $migratePath = [
+    //         '/vendor/obelaw/framework/database/migrations'
+    //     ];
 
-        $migrations = $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawMigration');
+    //     $migrations = $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawMigration');
 
-        return array_merge(
-            $migratePath,
-            $migrations
-        );
-    }
+    //     return array_merge(
+    //         $migratePath,
+    //         $migrations
+    //     );
+    // }
 
     /**
      * Get the value of Seeds
      */
-    public function getSeeds()
-    {
-        return $this->driver
-            ->setPrefix($this->getCachePrefix())
-            ->get('obelawSeeds');
-    }
+    // public function getSeeds()
+    // {
+    //     return $this->driver
+    //         ->setPrefix($this->getCachePrefix())
+    //         ->get('obelawSeeds');
+    // }
 
     /**
      * Get the value of at install
