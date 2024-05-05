@@ -277,17 +277,17 @@ class BundlesManagement
     /**
      * Get the value of at install
      */
-    public function getAtInstalls()
-    {
-        return array_merge(
-            $this->driver
-                ->setPrefix($this->getCachePrefix())
-                ->get('obelawInstallCommands'),
-            [
-                AddDefaultAdminCommand::class,
-            ]
-        );
-    }
+    // public function getAtInstalls()
+    // {
+    //     return array_merge(
+    //         $this->driver
+    //             ->setPrefix($this->getCachePrefix())
+    //             ->get('obelawInstallCommands'),
+    //         [
+    //             AddDefaultAdminCommand::class,
+    //         ]
+    //     );
+    // }
 
     public function hasModule($id)
     {
