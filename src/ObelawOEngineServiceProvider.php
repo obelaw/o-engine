@@ -5,7 +5,6 @@ namespace Obelaw;
 use Composer\InstalledVersions;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\ServiceProvider;
-use Obelaw\Compiles\CompileManagement;
 use Obelaw\Compiles\Scan\Modules\InfoCompile;
 use Obelaw\Console\CompilingCommand;
 use Obelaw\Console\DriverTableCommand;
@@ -30,7 +29,6 @@ class ObelawOEngineServiceProvider extends ServiceProvider
             'obelaw.engine'
         );
 
-        $this->app->singleton('obelaw.o.compile', CompileManagement::class);
         $this->app->singleton('obelaw.o.bundles', BundlesManagement::class);
 
         $this->app->bind(Driver::class, config('obelaw.engine.driver', CacheDriver::class));

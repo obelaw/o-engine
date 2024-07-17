@@ -2,16 +2,6 @@
 
 namespace Obelaw\Compiles;
 
-use Obelaw\Compiles\Appends\NavbarAppendsCompile;
-use Obelaw\Compiles\Appends\ViewsAppendsCompile;
-use Obelaw\Compiles\Plugins\ACLPluginCompile;
-use Obelaw\Compiles\Plugins\FormsPluginCompile;
-use Obelaw\Compiles\Plugins\GridsPluginCompile;
-use Obelaw\Compiles\Plugins\MigrationsPluginCompile;
-use Obelaw\Compiles\Plugins\NavbarPluginCompile;
-use Obelaw\Compiles\Plugins\RoutesApiPluginCompile;
-use Obelaw\Compiles\Plugins\RoutesDashboardPluginCompile;
-use Obelaw\Compiles\Plugins\ViewsPluginCompile;
 use Obelaw\Drivers\Abstracts\Driver;
 use Obelaw\Render\BundlesPool;
 use Obelaw\Render\BundlesScaneers;
@@ -23,18 +13,24 @@ class CompileManagement
     private $driverPrefix = null;
     private $modulesPaths = null;
     private $pluginsPaths = null;
+    private array $disableAddons = [];
 
-    public function __construct(Driver $driver)
+    public function __construct(Driver $driver, array $disableAddons = [])
     {
         $this->driver = $driver;
+        $this->disableAddons = $disableAddons;
 
         if (BundlesPool::hasPools()) {
             BundlesPool::scan();
         }
 
-        $this->modulesPaths = BundleRegistrar::getPaths(BundleRegistrar::MODULE);
+        // dd(
+        //     $this->disableAddons(BundleRegistrar::getPaths(BundleRegistrar::MODULE))
+        // );
 
-        $this->pluginsPaths = BundleRegistrar::getPaths(BundleRegistrar::PLUGIN);
+        $this->modulesPaths = $this->disableAddons(BundleRegistrar::getPaths(BundleRegistrar::MODULE));
+
+        $this->pluginsPaths = $this->disableAddons(BundleRegistrar::getPaths(BundleRegistrar::PLUGIN));
     }
 
     /**
@@ -56,6 +52,14 @@ class CompileManagement
         return $this;
     }
 
+    /**
+     * Get the value of disableAddons
+     */
+    public function getDisableAddons()
+    {
+        return $this->disableAddons;
+    }
+
     public function compiling($consoleOutput = null)
     {
         $driver = $this->driver->setPrefix($this->getDriverPrefix());
@@ -72,6 +76,18 @@ class CompileManagement
         $consoleOutput?->info('Appends Compiling');
         $this->AppendsCompiling($driver, $consoleOutput);
         $consoleOutput?->newLine(3);
+    }
+
+    private function disableAddons($addons)
+    {
+        if (empty($this->getDisableAddons()))
+            return $addons;
+
+        foreach ($this->getDisableAddons() as $addon) {
+            unset($addons[$addon]);
+        }
+
+        return $addons;
     }
 
     private function modulesCompiling($driver, $consoleOutput)

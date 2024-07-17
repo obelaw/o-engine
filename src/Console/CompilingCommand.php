@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Obelaw\Console;
 
 use Illuminate\Console\Command;
-use Obelaw\Facades\Compile;
+use Obelaw\Compiles\CompileManagement;
+use Obelaw\Drivers\CacheDriver;
 
 final class CompilingCommand extends Command
 {
@@ -15,7 +16,9 @@ final class CompilingCommand extends Command
 
     public function handle(): void
     {
-        Compile::compiling($this->output);
+        $driver = new CacheDriver;
+        $compileManagement = new CompileManagement($driver);
+        $compileManagement->compiling($this->output);
 
         $this->newLine();
         $this->info('All modules and plugins have been configured.');
