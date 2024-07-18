@@ -6,6 +6,7 @@ namespace Obelaw\Console;
 
 use Illuminate\Console\Command;
 use Obelaw\Compiles\CompileManagement;
+use Obelaw\Compiles\Scan\AddonsPaths;
 use Obelaw\Drivers\CacheDriver;
 
 final class CompilingCommand extends Command
@@ -16,8 +17,11 @@ final class CompilingCommand extends Command
 
     public function handle(): void
     {
-        $driver = new CacheDriver;
-        $compileManagement = new CompileManagement($driver);
+        $driver = config('obelaw.engine.driver', CacheDriver::class);
+        $driver = new $driver;
+
+        $addonsPaths = new AddonsPaths;
+        $compileManagement = new CompileManagement($driver, $addonsPaths);
         $compileManagement->compiling($this->output);
 
         $this->newLine();
